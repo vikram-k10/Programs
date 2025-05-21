@@ -1,2318 +1,779 @@
+
+
+Detailed Manual Steps to Execute Servlet:
+
+1. Set Up Environment:
+
+Install Eclipse IDE.
+Install Apache Tomcat.
+
+2. Create Project:
+
+Open Eclipse.
+File > New > Dynamic Web Project.
+Name the project Program8 > Next > Next > Check web.xml deployment descriptor > Finish
+
+3. Create Servlet:
+
+Java Resources > src/main/java ->  Right-click  -> New > Servlet.
+Name the servlet GreetingServlet
+Name the Java package & Class name > Next > Next > Check doPost & doGet (if required in the program) >  Finish
+Place the generated code in the provided GreetingServlet.java File.
+
+* Save the File.
+
+4. Create HTML:
+
+main > webapp ->  Right-click  -> New > HTML File.
+Name the File Name >  Next > Finish 
+Place the generated code in the provided html File.
+
+* Save the File.
+
+5. Configure web.xml:
+
+webapp > /WEB-INF/ > web.xml->
+ In web.xml File > source 
+Name the file web.xml.
+Add the provided web.xml content.
+
+* Save the File.
+
+6. Deploy Application:
+
+Right-click the project -> Run As > Run on Server.
+Choose Apache Tomcat > Next > add the project > Finish.
+
+7. Access and Test:
+
+Open a web browser.
+Go to http://localhost:8080/GreetingApp/greet.
+Interact with the form.
+
+This will guide you through creating a servlet that displays a greeting message and accepts a username from the client.
+
+Reference: https://www.javatpoint.com/creating-servlet-in-eclipse-ide
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8. 	A program to display greeting message on the browser “Hello User Name”, “How Are You?”, accept username from the client using servlet.	
+	
+Program: 
+
+Servlet File:
+
+
+package javaprogram;
+
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
+public class GreetingServlet extends HttpServlet {
+	
+    public GreetingServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.setContentType("text/html");
+        
+        // Get username parameter from the request
+        String username = request.getParameter("username");
+        
+        // Generate greeting message
+      String greetingMessage = "Hello " + (username != null ? username : "User") + ", How Are You?";
+        
+        // Write greeting message to the response
+        response.getWriter().println("<html><body>");
+        response.getWriter().println("<h1>" + greetingMessage + "</h1>");
+        response.getWriter().println("</body></html>");
+	}
+}
+
+
+
+
+
+
+
+web.xml File:
+
+<servlet>
+    <servlet-name>GreetingServlet</servlet-name>
+    <servlet-class>javaprogram.GreetingServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>GreetingServlet</servlet-name>
+    <url-pattern>/greet</url-pattern>
+</servlet-mapping>
+
+Note: Replace above with the existing one.
+
+His configuration maps the servlet to the URL pattern "/greet", so when a client sends a request to "/greet" with a parameter "username", the servlet will handle it.
+To test the servlet, you can create a simple HTML form that submits the username to the servlet:
+
+HTML File:
+
+<!DOCTYPE html>
 <html>
-
 <head>
-<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-<meta name=Generator content="Microsoft Word 15 (filtered)">
-<title>BIS402                                                                  
-                                           Advanced Java Laboratory</title>
-<style>
-<!--
- /* Font Definitions */
- @font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:Cambria;
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:"\@SimSun";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Tahoma;
-	panose-1:2 11 6 4 3 5 4 4 2 4;}
- /* Style Definitions */
- p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;}
-span.mjxassistivemathml
-	{mso-style-name:mjx_assistive_mathml;}
-.MsoChpDefault
-	{font-family:"Calibri",sans-serif;}
-.MsoPapDefault
-	{margin-bottom:10.0pt;
-	line-height:115%;}
- /* Page Definitions */
- @page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;
-	border:double windowtext 1.5pt;
-	padding:24.0pt 24.0pt 24.0pt 24.0pt;}
-div.WordSection1
-	{page:WordSection1;}
--->
-</style>
-
+    <title>Greeting Form</title>
 </head>
-
-<body lang=EN-US style='word-wrap:break-word'>
-
-<div class=WordSection1>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><b>Detailed
-Manual Steps to Execute Servlet:</b></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><b>&nbsp;</b></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>1. Set Up
-Environment:</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>Install Eclipse
-IDE.</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>Install Apache
-Tomcat.</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>2. Create
-Project:</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>Open Eclipse.</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>File &gt; New
-&gt; Dynamic Web Project.</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>Name the
-project Program8 &gt; Next &gt; Next &gt; Check web.xml deployment descriptor
-&gt; Finish</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>3. Create
-Servlet:</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>Java Resources
-&gt; src/main/java -&gt;  Right-click  -&gt; New &gt; Servlet.</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>Name the
-servlet GreetingServlet</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>Name the Java
-package &amp; Class name &gt; Next &gt; Next &gt; Check doPost &amp; doGet (if
-required in the program) &gt;  Finish</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>Place the
-generated code in the provided GreetingServlet.java File.</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>* Save the
-File.</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>4. Create HTML:</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>main &gt;
-webapp -&gt;  Right-click  -&gt; New &gt; HTML File.</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>Name the File
-Name &gt;  Next &gt; Finish </p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>Place the
-generated code in the provided html File.</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>* Save the
-File.</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>5. Configure
-web.xml:</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>webapp &gt;
-/WEB-INF/ &gt; web.xml-&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'> In web.xml
-File &gt; source </p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>Name the file
-web.xml.</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>Add the
-provided web.xml content.</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>* Save the
-File.</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>6. Deploy
-Application:</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>Right-click the
-project -&gt; Run As &gt; Run on Server.</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>Choose Apache
-Tomcat &gt; Next &gt; add the project &gt; Finish.</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>7. Access and
-Test:</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>Open a web
-browser.</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>Go to
-http://localhost:8080/GreetingApp/greet.</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>Interact with
-the form.</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>This will guide
-you through creating a servlet that displays a greeting message and accepts a username
-from the client.</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><b>Reference:</b>
-https://www.javatpoint.com/creating-servlet-in-eclipse-ide</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-align:justify;text-indent:-.5in;
-text-autospace:none'><b>8.         A program to display greeting message on the
-browser “Hello User Name”, “How Are You?”, accept username from the client
-using servlet.      </b></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-align:justify;text-indent:-.5in;
-text-autospace:none'><b>            </b></p>
-
-<p class=MsoNormal style='text-autospace:none'><b>Program: </b></p>
-
-<p class=MsoNormal style='text-autospace:none'><b>&nbsp;</b></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><b>Servlet File:</b></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><b><span style='font-size:4.0pt;line-height:115%'>&nbsp;</span></b></p>
-
-<p class=MsoNormal style='text-indent:.5in;text-autospace:none'><span
-style='font-size:1.0pt'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>package javaprogram;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>import jakarta.servlet.*;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>import jakarta.servlet.http.*;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>public class GreetingServlet extends HttpServlet {</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            </p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    public GreetingServlet() {</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        super();</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        // TODO Auto-generated constructor stub</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    }</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            </p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            protected void doGet(HttpServletRequest request,
-HttpServletResponse response) throws ServletException, IOException {</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>                        // TODO Auto-generated method stub</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>                        //response.getWriter().append(&quot;Served at:
-&quot;).append(request.getContextPath());</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>                        response.setContentType(&quot;text/html&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        </p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        // Get username parameter from the request</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        String username = request.getParameter(&quot;username&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        </p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        // Generate greeting message</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>      String greetingMessage = &quot;Hello &quot; + (username != null ?
-username : &quot;User&quot;) + &quot;, How Are You?&quot;;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        </p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        // Write greeting message to the response</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>       
-response.getWriter().println(&quot;&lt;html&gt;&lt;body&gt;&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        response.getWriter().println(&quot;&lt;h1&gt;&quot; +
-greetingMessage + &quot;&lt;/h1&gt;&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>       
-response.getWriter().println(&quot;&lt;/body&gt;&lt;/html&gt;&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            }</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>}</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><span style='font-size:4.0pt;line-height:115%'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><span style='font-size:4.0pt;line-height:115%'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><span style='font-size:4.0pt;line-height:115%'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><span style='font-size:4.0pt;line-height:115%'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><span style='font-size:4.0pt;line-height:115%'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><span style='font-size:4.0pt;line-height:115%'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><span style='font-size:4.0pt;line-height:115%'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><b>web.xml File:</b></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><span style='font-size:7.0pt;line-height:115%'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;servlet&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;servlet-name&gt;GreetingServlet&lt;/servlet-name&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;servlet-class&gt;javaprogram.GreetingServlet&lt;/servlet-class&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;/servlet&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;servlet-mapping&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;servlet-name&gt;GreetingServlet&lt;/servlet-name&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;url-pattern&gt;/greet&lt;/url-pattern&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;/servlet-mapping&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><b>Note:</b> Replace above with the existing one.</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>His configuration maps the servlet to the URL pattern &quot;/greet&quot;,
-so when a client sends a request to &quot;/greet&quot; with a parameter
-&quot;username&quot;, the servlet will handle it.</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>To test the servlet, you can create a simple HTML form that submits the
-username to the servlet:</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><b>HTML File:</b></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><span style='font-size:4.0pt;line-height:115%'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;!DOCTYPE html&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;html&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;head&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;title&gt;Greeting Form&lt;/title&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;/head&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;body&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;form action=&quot;greet&quot; method=&quot;get&quot;&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        Username: &lt;input type=&quot;text&quot;
-name=&quot;username&quot;&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        &lt;input type=&quot;submit&quot; value=&quot;Submit&quot;&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;/form&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;/body&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;/html&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-align:justify;line-height:115%;
-text-autospace:none'>Save this HTML code as &quot;greeting_form.html&quot; and
-deploy it along with the servlet. When you open the HTML file in a browser, it
-will display a form where you can enter a username. Upon submitting the form,
-it will send a GET request to the servlet, which will generate the greeting
-message and display it on the browser.</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-align:justify;line-height:115%;
-text-autospace:none'>Remember to deploy your servlet and HTML file properly in
-a servlet container like Apache Tomcat. </p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal style='text-indent:.5in;text-autospace:none'><b>OUTPUT:</b></p>
-
-<p class=MsoNormal style='text-indent:.5in;text-autospace:none'><b><u><span
- style='text-decoration:none'>&nbsp;</span></u></b></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><img width=353
-height=152 id="Picture 6" src="program-8%20(2)%20(1)_files/image001.png"
-alt="Screenshot 2024-05-24 125856"><span style='font-size:0pt;color:black;
-border:none black 1.0pt;padding:0in;background:black;layout-grid-mode:line'> </span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><img width=354
-height=132 id="Picture 5" src="program-8%20(2)%20(1)_files/image002.png"
-alt="Screenshot 2024-05-24 130101"><span style='font-size:0pt;color:black;
-border:none black 1.0pt;padding:0in;background:black;layout-grid-mode:line'> </span><img
-width=355 height=173 id="Picture 4"
-src="program-8%20(2)%20(1)_files/image003.png"
-alt="Screenshot 2024-05-24 130227"></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='text-indent:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='text-align:justify;line-height:115%;text-autospace:
-none'><b>9.         A servlet program to display the name, USN, and total marks
-by accepting student detail.</b></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><span class=mjxassistivemathml><span style='color:#333333;border:none windowtext 1.0pt;
-padding:0in;background:white'>&nbsp;</span></span></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><b><u>Servlet File:</u></b></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><span class=mjxassistivemathml><span style='font-size:7.0pt;line-height:
-115%;color:#333333;border:none windowtext 1.0pt;padding:0in;background:white'>&nbsp;</span></span></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>package javaprogram;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>import jakarta.servlet.*;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>import jakarta.servlet.http.*;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>public class StudentDetailsServlet extends HttpServlet {</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            private static final long serialVersionUID = 1L;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>       </p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    public StudentDetailsServlet() {</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        super();</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        // TODO Auto-generated constructor stub</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    }</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='line-height:115%;text-autospace:none'>            protected
-void doPost(HttpServletRequest request, HttpServletResponse   response) throws
-ServletException, IOException {</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>                        // TODO Auto-generated method stub</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>                         response.setContentType(&quot;text/html&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>                                </p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>                                // Get student details from the request</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>                               String name =
-request.getParameter(&quot;name&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>                                String usn =
-request.getParameter(&quot;usn&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>                               int totalMarks = Integer.parseInt(request.getParameter(&quot;totalMarks&quot;));</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>                                </p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>                               // Generate student details message</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>                                String detailsMessage = &quot;Student
-Name: &quot; + name + &quot;&lt;br&gt;&quot;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>                                                      + &quot;USN: &quot;
-+ usn + &quot;&lt;br&gt;&quot;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>                                                      + &quot;Total
-Marks: &quot; + totalMarks;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>                                </p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>                                // Write student details message to the
-response</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>                               
-response.getWriter().println(&quot;&lt;html&gt;&lt;body&gt;&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>                               
-response.getWriter().println(&quot;&lt;h1&gt;Student Details&lt;/h1&gt;&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>                               
-response.getWriter().println(&quot;&lt;p&gt;&quot; + detailsMessage +
-&quot;&lt;/p&gt;&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>                              
-response.getWriter().println(&quot;&lt;/body&gt;&lt;/html&gt;&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            }</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>}</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><b><u>web.xml File:</u></b></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><span class=mjxassistivemathml><span style='font-size:8.0pt;line-height:
-115%;color:#333333;border:none windowtext 1.0pt;padding:0in;background:white'>&nbsp;</span></span></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;servlet&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;description&gt;&lt;/description&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;display-name&gt;StudentDetailsServlet&lt;/display-name&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;servlet-name&gt;StudentDetailsServlet&lt;/servlet-name&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>   
-&lt;servlet-class&gt;javaprogram.StudentDetailsServlet&lt;/servlet-class&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>  &lt;/servlet&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>  &lt;servlet-mapping&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;servlet-name&gt;StudentDetailsServlet&lt;/servlet-name&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;url-pattern&gt;/studentDetails&lt;/url-pattern&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>  &lt;/servlet-mapping&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><b>Note:</b> Replace above with the existing one.</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>This configuration maps the servlet to the URL pattern
-&quot;/studentDetails&quot;, so when a client sends a request to
-&quot;/studentDetails&quot; with parameters &quot;name&quot;, &quot;usn&quot;,
-and &quot;totalMarks&quot;, the servlet will handle it.</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>To test the servlet, you can create a simple HTML form that submits the
-student details to the servlet:</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><b><u>HTML File:</u></b></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><span style='font-size:9.0pt;line-height:115%'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;!DOCTYPE html&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;html&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;head&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;title&gt;Student Details Form&lt;/title&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;/head&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;body&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;form action=&quot;studentDetails&quot; method=&quot;post&quot;&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>       Name: &lt;input type=&quot;text&quot;
-name=&quot;name&quot;&gt;&lt;br&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        USN: &lt;input type=&quot;text&quot;
-name=&quot;usn&quot;&gt;&lt;br&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        Total Marks: &lt;input type=&quot;text&quot;
-name=&quot;totalMarks&quot;&gt;&lt;br&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        &lt;input type=&quot;submit&quot; value=&quot;Submit&quot;&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;/form&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;/body&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;/html&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-align:justify;line-height:115%;
-text-autospace:none'>Save this HTML code as
-&quot;student_details_form.html&quot; and deploy it along with the servlet.
-When you open the HTML file in a browser, it will display a form where you can
-enter student details. Upon submitting the form, it will send a POST request to
-the servlet, which will generate the student details message and display it on
-the browser.</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-align:justify;line-height:115%;
-text-autospace:none'>Remember to deploy your servlet and HTML file properly in
-a servlet container like Apache Tomcat. </p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='text-indent:.5in;text-autospace:none'><b>OUTPUT:</b></p>
-
-<p class=MsoNormal style='text-indent:.5in;text-autospace:none'><b>&nbsp;</b></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><b><img
-width=386 height=173 id="Picture 12"
-src="program-8%20(2)%20(1)_files/image004.png"
-alt="Screenshot 2024-05-24 133002"></b><span style='font-size:0pt;color:black;
-border:none black 1.0pt;padding:0in;background:black;layout-grid-mode:line'> </span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><span
-style='font-size:0pt;color:black;border:none black 1.0pt;padding:0in;
-background:black;layout-grid-mode:line'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><span
-style='font-size:0pt;color:black;border:none black 1.0pt;padding:0in;
-background:black;layout-grid-mode:line'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><span
-style='font-size:0pt;color:black;border:none black 1.0pt;padding:0in;
-background:black;layout-grid-mode:line'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><span
-style='font-size:0pt;color:black;border:none black 1.0pt;padding:0in;
-background:black;layout-grid-mode:line'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><span
-style='font-size:0pt;color:black;border:none black 1.0pt;padding:0in;
-background:black;layout-grid-mode:line'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><span
-style='font-size:0pt;color:black;border:none black 1.0pt;padding:0in;
-background:black;layout-grid-mode:line'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><span
-style='font-size:0pt;color:black;border:none black 1.0pt;padding:0in;
-background:black;layout-grid-mode:line'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><span
-style='font-size:0pt;color:black;border:none black 1.0pt;padding:0in;
-background:black;layout-grid-mode:line'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><span
-style='font-size:0pt;color:black;border:none black 1.0pt;padding:0in;
-background:black;layout-grid-mode:line'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><span
-style='font-size:0pt;color:black;border:none black 1.0pt;padding:0in;
-background:black;layout-grid-mode:line'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><span
-style='font-size:0pt;color:black;border:none black 1.0pt;padding:0in;
-background:black;layout-grid-mode:line'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><span
-style='font-size:0pt;color:black;border:none black 1.0pt;padding:0in;
-background:black;layout-grid-mode:line'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><span
-style='font-size:0pt;color:black;border:none black 1.0pt;padding:0in;
-background:black;layout-grid-mode:line'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><span
-style='font-size:0pt;color:black;border:none black 1.0pt;padding:0in;
-background:black;layout-grid-mode:line'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><span
-style='font-size:0pt;color:black;border:none black 1.0pt;padding:0in;
-background:black;layout-grid-mode:line'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><span
-style='font-size:0pt;color:black;border:none black 1.0pt;padding:0in;
-background:black;layout-grid-mode:line'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><span
-style='font-size:0pt;color:black;border:none black 1.0pt;padding:0in;
-background:black;layout-grid-mode:line'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><span
-style='font-size:0pt;color:black;border:none black 1.0pt;padding:0in;
-background:black;layout-grid-mode:line'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><span
-style='font-size:0pt;color:black;border:none black 1.0pt;padding:0in;
-background:black;layout-grid-mode:line'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><span
-style='font-size:0pt;color:black;border:none black 1.0pt;padding:0in;
-background:black;layout-grid-mode:line'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><span
-style='font-size:0pt;color:black;border:none black 1.0pt;padding:0in;
-background:black;layout-grid-mode:line'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><span
-style='font-size:0pt;color:black;border:none black 1.0pt;padding:0in;
-background:black;layout-grid-mode:line'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><span
-style='font-size:0pt;color:black;border:none black 1.0pt;padding:0in;
-background:black;layout-grid-mode:line'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><b><img
-width=383 height=193 id="Picture 11"
-src="program-8%20(2)%20(1)_files/image005.png"
-alt="Screenshot 2024-05-24 133053"></b></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><b><span
-style='font-size:7.0pt'>&nbsp;</span></b></p>
-
-<p class=MsoNormal style='text-indent:.5in;text-autospace:none'><b><img
-width=383 height=217 id="Picture 10"
-src="program-8%20(2)%20(1)_files/image006.png"
-alt="Screenshot 2024-05-24 133109"></b></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><b><u><span
- style='text-decoration:none'>&nbsp;</span></u></b></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><b><u><span
- style='text-decoration:none'>&nbsp;</span></u></b></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><b><u><span
- style='text-decoration:none'>&nbsp;</span></u></b></p>
-
-<p class=MsoNormal style='text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-align:justify;text-indent:-.5in;
-line-height:115%;text-autospace:none'><b>10.       A Java program to create and
-read the cookie for the given cookie name as “EMPID” and its value as “AN2356”.</b></p>
-
-<p class=MsoNormal style='text-autospace:none'><b>&nbsp;</b></p>
-
-<p class=MsoNormal style='text-autospace:none'><b>Program:</b></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><b><u>\\ Set Cookie Servlet File:</u></b></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><b><u><span style='text-decoration:none'>&nbsp;</span></u></b></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>package javaprogram;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>import jakarta.servlet.*;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>import jakarta.servlet.http.Cookie;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>import jakarta.servlet.http.*;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>@WebServlet(&quot;/SetCookie&quot;)</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>public class SetCookieServlet extends HttpServlet {</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    private static final long serialVersionUID = 1L;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    protected void doGet(HttpServletRequest request, HttpServletResponse
-response) throws ServletException, IOException {</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        // Create a cookie</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        Cookie cookie = new Cookie(&quot;EMPID&quot;,
-&quot;AN2356&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        // Set cookie properties</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        cookie.setMaxAge(3600); // Cookie expires in 1 hour</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        cookie.setPath(&quot;/&quot;);    // Cookie is accessible from
-the root path</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        // Add cookie to the response</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        response.addCookie(cookie);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        // Inform the user that the cookie is set</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        response.setContentType(&quot;text/html&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        response.getWriter().println(&quot;Cookie 'EMPID' with value
-'AN2356' is set.&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    }</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>}</p>
-
-<p class=MsoNormal style='line-height:115%;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><b><u>\\ Read Cookie Servlet File:</u></b></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><span style='font-size:7.0pt;line-height:115%'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>package javaprogram;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><span style='font-size:8.0pt;line-height:115%'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>import jakarta.servlet.*;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>import jakarta.servlet.http.Cookie;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>import jakarta.servlet.http.*;</p>
-
-<p class=MsoNormal style='line-height:115%;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>@WebServlet(&quot;/ReadCookie&quot;)</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>public class ReadCookieServlet extends HttpServlet {</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    private static final long serialVersionUID = 1L;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    protected void doGet(HttpServletRequest request, HttpServletResponse
-response) throws ServletException, IOException {</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        // Get all cookies from the request</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        Cookie[] cookies = request.getCookies();</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        // Find the cookie with name &quot;EMPID&quot;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        String empId = null;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        if (cookies != null) {</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            for (Cookie cookie : cookies) {</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>                if (cookie.getName().equals(&quot;EMPID&quot;)) {</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>                    empId = cookie.getValue();</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>                    break;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>                }</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            }</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        }</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        // Respond with the value of the cookie</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        response.setContentType(&quot;text/html&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        if (empId != null) {</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            response.getWriter().println(&quot;EMPID: &quot; + empId);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        } else {</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            response.getWriter().println(&quot;No cookie found with name
-EMPID&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        }</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    }</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>}</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><b><u>web.xml Set Cookie File:</u></b></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><span style='font-size:10.0pt;line-height:115%'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;servlet&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;description&gt;&lt;/description&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;servlet-name&gt;SetCookieServlet&lt;/servlet-name&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>   
-&lt;servlet-class&gt;javaprogram.SetCookieServlet&lt;/servlet-class&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>  &lt;/servlet&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>  &lt;servlet-mapping&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;servlet-name&gt;SetCookieServlet&lt;/servlet-name&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;url-pattern&gt;/SetCookieServlet&lt;/url-pattern&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>  &lt;/servlet-mapping&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>  &lt;servlet&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;description&gt;&lt;/description&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><b>Note:</b> Replace above with the existing one.</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><b><u>web.xml Read Cookie File:</u></b></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><span style='font-size:9.0pt;line-height:115%'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;servlet-name&gt;ReadCookieServlet&lt;/servlet-name&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>   
-&lt;servlet-class&gt;javaprogram.ReadCookieServlet&lt;/servlet-class&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>  &lt;/servlet&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>  &lt;servlet-mapping&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;servlet-name&gt;ReadCookieServlet&lt;/servlet-name&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;url-pattern&gt;/ReadCookieServlet&lt;/url-pattern&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>  &lt;/servlet-mapping&gt; </p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><b>Note:</b> Replace above with the existing one.</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-top:4.5pt;text-indent:.5in'><b>OUTPUT:</b></p>
-
-<p class=MsoNormal style='text-indent:.5in;text-autospace:none'><b>&nbsp;</b></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><b><img
-width=382 height=153 id="Picture 15"
-src="program-8%20(2)%20(1)_files/image007.png"
-alt="Screenshot 2024-05-31 131910"></b></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><b><img
-width=387 height=147 id="Picture 16"
-src="program-8%20(2)%20(1)_files/image008.png"
-alt="Screenshot 2024-05-31 131923"></b></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='text-align:justify;line-height:115%;text-autospace:
-none'><b>11.       Write a JAVA Program to insert data into Student DATA BASE
-and retrieve info based on particular queries(For example update, delete,
-search etc…).    </b></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.5in;text-autospace:
-none'><b> </b></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.5in;text-autospace:
-none'><b> Program:</b></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.5in;text-autospace:
-none'><b>&nbsp;</b></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>package javaprogram;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>import java.sql.Connection;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>import java.sql.DriverManager;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>import java.sql.PreparedStatement;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>import java.sql.ResultSet;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>import java.sql.SQLException;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>public class StudentDatabaseExample {</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    // JDBC URL, username, and password of MySQL server</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    private static final String JDBC_URL =
-&quot;jdbc:mysql://localhost:3306/studentdb&quot;;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    private static final String USERNAME = &quot;root&quot;;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    private static final String PASSWORD = &quot;ise123&quot;;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    public static void main(String[] args) {</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        try {</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            // Register JDBC driver</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            // Open a connection</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            Connection conn = DriverManager.getConnection(JDBC_URL,
-USERNAME, PASSWORD);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            // Insert data into Student table</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            insertData(conn, &quot;John&quot;, 22, &quot;CS&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            insertData(conn, &quot;Alice&quot;, 21, &quot;Math&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            insertData(conn, &quot;Bob&quot;, 23, &quot;Physics&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            // Update data in Student table</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            updateData(conn, &quot;John&quot;, 23);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            // Delete data from Student table</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            deleteData(conn, &quot;Alice&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>         // Search for data in Student table</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            searchStudent(conn, &quot;Bob&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            // Close connection</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            conn.close();</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        } catch (Exception e) {</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            e.printStackTrace();</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        }</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    }</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:45.0pt;line-height:115%;text-autospace:
-none'>public static void insertData(Connection conn, String name, int age,
-String      major) throws SQLException {</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>  String query = &quot;INSERT INTO Student (name, age, major) VALUES (?,
-?, ?)&quot;;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        PreparedStatement pstmt = conn.prepareStatement(query);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        pstmt.setString(1, name);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        pstmt.setInt(2, age);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        pstmt.setString(3, major);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        pstmt.executeUpdate();</p>
-
-<p class=MsoNormal style='margin-left:49.5pt;line-height:115%;text-autospace:
-none'>    pstmt.close();</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    }</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:49.5pt;line-height:115%;text-autospace:
-none'>public static void updateData(Connection conn, String name, int newAge)               throws
-SQLException {</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        String query = &quot;UPDATE Student SET age = ? WHERE name =
-?&quot;;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        PreparedStatement pstmt = conn.prepareStatement(query);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        pstmt.setInt(1, newAge);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        pstmt.setString(2, name);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        pstmt.executeUpdate();</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        pstmt.close();</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    }</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:49.5pt;line-height:115%;text-autospace:
-none'>public static void deleteData(Connection conn, String name) throws  SQLException
-{</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        String query = &quot;DELETE FROM Student WHERE name = ?&quot;;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        PreparedStatement pstmt = conn.prepareStatement(query);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        pstmt.setString(1, name);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        pstmt.executeUpdate();</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        pstmt.close();</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    }</p>
-
-<p class=MsoNormal style='margin-left:49.5pt;line-height:115%;text-autospace:
-none'>public static void searchStudent(Connection conn, String name) throws                                                                       SQLException
-{</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        String query = &quot;SELECT * FROM Student WHERE name = ?&quot;;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        PreparedStatement pstmt = conn.prepareStatement(query);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        pstmt.setString(1, name);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        ResultSet rs = pstmt.executeQuery();</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        while (rs.next()) {</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            int id = rs.getInt(&quot;id&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            String studentName = rs.getString(&quot;name&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            int age = rs.getInt(&quot;age&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            String major = rs.getString(&quot;major&quot;);</p>
-
-<p class=MsoNormal style='margin-left:1.0in;line-height:115%;text-autospace:
-none'>System.out.println(&quot;ID: &quot; + id + &quot;, Name: &quot; +
-studentName + &quot;, Age: &quot; +    age + &quot;, Major: &quot; + major);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        }</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        rs.close();</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        pstmt.close();</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    }</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>}</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><b>//</b></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>CREATE DATABASE studentdb;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>USE studentdb;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>CREATE TABLE Student (</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    id INT AUTO_INCREMENT PRIMARY KEY,</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    name VARCHAR(50) NOT NULL,</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    age INT NOT NULL,</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    major VARCHAR(50) NOT NULL</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><b>//</b></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>use studentdb;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>select * from student;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-top:4.5pt'><b>OUTPUT:</b></p>
-
-<p class=MsoNormal style='margin-top:4.5pt'><b>&nbsp;</b></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><b><img
-width=488 height=123 id="Picture 17"
-src="program-8%20(2)%20(1)_files/image009.png" alt=bbbb></b></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><b><img
-width=489 height=152 id="Picture 18"
-src="program-8%20(2)%20(1)_files/image010.png" alt=yyyyyyyyyy></b></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='text-align:justify;line-height:115%;text-autospace:
-none'><b>12.       A program to design the Login page and validating the
-USER_ID and PASSWORD using JSP and DataBase.</b></p>
-
-<p class=MsoNormal style='text-align:justify;line-height:115%;text-autospace:
-none'><b>&nbsp;</b></p>
-
-<p class=MsoNormal style='line-height:115%;text-autospace:none'><b>Program:</b></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><b>Step 1:</b> Set Up the MySQL Database</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>Create a Database and Table:</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>Open your MySQL command line or a GUI tool like MySQL Workbench.</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>Create a database and a users table:</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>CREATE DATABASE userdb;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>USE userdb;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>CREATE TABLE users (</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    user_id VARCHAR(50) PRIMARY KEY,</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    password VARCHAR(50)</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><b>Insert a sample user:</b></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><b>&nbsp;</b></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>INSERT INTO users (user_id, password) VALUES ('testuser',
-'testpassword');</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><b>Step 2:</b> Set Up Eclipse Project</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>Open Eclipse and select your workspace.</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>Create a Dynamic Web Project:</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>Go to File &gt; New &gt; Dynamic Web Project.</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>Name your project (e.g., JSPLoginExample).</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>Click Next and configure the project facets. Ensure that the version for
-Dynamic Web Module is set to the latest supported version and select your
-Apache Tomcat server.</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>Click Finish.</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><b>Step 3:</b> Create JSP Pages</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>Create login.jsp:</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>Right-click the WebContent folder in your project (src/main/java).</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>Go to New &gt; JSP File and name it login.jsp.</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><b>Add the following code:</b></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><b>&nbsp;</b></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;!DOCTYPE html&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;html&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;head&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;title&gt;Login Page&lt;/title&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;/head&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;body&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;h2&gt;Login Page&lt;/h2&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;form action=&quot;validate.jsp&quot; method=&quot;post&quot;&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        User ID: &lt;input type=&quot;text&quot;
-name=&quot;user_id&quot;&gt;&lt;br&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        Password: &lt;input type=&quot;password&quot;
-name=&quot;password&quot;&gt;&lt;br&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        &lt;input type=&quot;submit&quot; value=&quot;Login&quot;&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;/form&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;/body&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;/html&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>Create validate.jsp:</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>Right-click the WebContent folder in your project (src/main/java).</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>Go to New &gt; JSP File and name it validate.jsp.</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><b>Add the following code:</b></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><b>&nbsp;</b></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;%@ page import=&quot;java.sql.*&quot; %&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;!DOCTYPE html&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;html&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;head&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;title&gt;Login Validation&lt;/title&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;/head&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;body&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;h2&gt;Login Validation&lt;/h2&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;%@ page language=&quot;java&quot; %&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;%@ page contentType=&quot;text/html; charset=ISO-8859-1&quot;
-%&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    &lt;%</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    String user_id = request.getParameter(&quot;user_id&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    String password = request.getParameter(&quot;password&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    </p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    // JDBC URL, username, and password of your database</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    String JDBC_URL = &quot;jdbc:mysql://localhost:3306/userdb&quot;;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>String USERNAME = &quot;root&quot;; // change to your MySQL username</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    String PASSWORD = &quot;rootpassword&quot;; // change to your MySQL
-password</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    try {</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        // Register JDBC driver</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        // Open a connection</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        Connection conn = DriverManager.getConnection(JDBC_URL, USERNAME,
-PASSWORD);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        // Create a prepared statement to prevent SQL injection</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        String sql = &quot;SELECT * FROM users WHERE user_id=? AND
-password=?&quot;;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        PreparedStatement stmt = conn.prepareStatement(sql);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        stmt.setString(1, user_id);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        stmt.setString(2, password);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        // Execute the query</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        ResultSet rs = stmt.executeQuery();</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        // Check if user_id and password match</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        if (rs.next()) {</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            out.println(&quot;&lt;p&gt;Login successful! Welcome, &quot;
-+ user_id + &quot;!&lt;/p&gt;&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        } else {</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>            out.println(&quot;&lt;p&gt;Invalid user_id or password.&lt;/p&gt;&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        }</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        // Close connections</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        rs.close();</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        stmt.close();</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        conn.close();</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    } catch (Exception e) {</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>        out.println(&quot;&lt;p&gt;Error: &quot; + e.getMessage() +
-&quot;&lt;/p&gt;&quot;);</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    }</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>    %&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;/body&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&lt;/html&gt;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'><b>Step 4:</b> Deploy and Run the Project</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>Start the Server:</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-align:justify;line-height:115%;
-text-autospace:none'>In the Servers view, right-click your Tomcat server and
-select Start.</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-align:justify;line-height:115%;
-text-autospace:none'>Access the Application:</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-align:justify;line-height:115%;
-text-autospace:none'><span style='font-size:4.0pt;line-height:115%'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-align:justify;line-height:115%;
-text-autospace:none'>Open a web browser and go to
-http://localhost:8080/JSPLoginExample/login.jsp.</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-align:justify;line-height:115%;
-text-autospace:none'>Step 5: Test the Application</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-align:justify;line-height:115%;
-text-autospace:none'>Login:</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-align:justify;line-height:115%;
-text-autospace:none'>Enter the user ID and password you inserted into the
-database (testuser / testpassword).</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-align:justify;line-height:115%;
-text-autospace:none'>Click Login.</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-align:justify;line-height:115%;
-text-autospace:none'>You should see a message indicating whether the login was
-successful or not.</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-align:justify;line-height:115%;
-text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-top:4.5pt'><b>OUTPUT:</b></p>
-
-<p class=MsoNormal style='margin-left:.5in;line-height:115%;text-autospace:
-none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><img width=422
-height=162 id="Picture 19" src="program-8%20(2)%20(1)_files/image011.png"
-alt="Screenshot 2024-06-18 125520"></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><img width=422
-height=188 id="Picture 20" src="program-8%20(2)%20(1)_files/image012.png"
-alt="Screenshot 2024-06-18 125741"></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'><img width=418
-height=195 id="Picture 21" src="program-8%20(2)%20(1)_files/image013.png"
-alt="Screenshot 2024-06-18 125752"></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal style='margin-left:.5in;text-autospace:none'>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-</div>
-
+<body>
+    <form action="greet" method="get">
+        Username: <input type="text" name="username">
+        <input type="submit" value="Submit">
+    </form>
 </body>
-
 </html>
+Save this HTML code as "greeting_form.html" and deploy it along with the servlet. When you open the HTML file in a browser, it will display a form where you can enter a username. Upon submitting the form, it will send a GET request to the servlet, which will generate the greeting message and display it on the browser.
+Remember to deploy your servlet and HTML file properly in a servlet container like Apache Tomcat. 
+
+
+
+
+
+OUTPUT:
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+9.	A servlet program to display the name, USN, and total marks by accepting student detail.
+
+Servlet File:
+
+package javaprogram;
+
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
+
+public class StudentDetailsServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    public StudentDetailsServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse   response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		 response.setContentType("text/html");
+		        
+		        // Get student details from the request
+		       String name = request.getParameter("name");
+		        String usn = request.getParameter("usn");
+		       int totalMarks = Integer.parseInt(request.getParameter("totalMarks"));
+		        
+		       // Generate student details message
+		        String detailsMessage = "Student Name: " + name + "<br>"
+		                              + "USN: " + usn + "<br>"
+		                              + "Total Marks: " + totalMarks;
+		        
+		        // Write student details message to the response
+		        response.getWriter().println("<html><body>");
+		        response.getWriter().println("<h1>Student Details</h1>");
+		        response.getWriter().println("<p>" + detailsMessage + "</p>");
+		       response.getWriter().println("</body></html>");
+	}
+}
+
+web.xml File:
+
+<servlet>
+    <description></description>
+    <display-name>StudentDetailsServlet</display-name>
+    <servlet-name>StudentDetailsServlet</servlet-name>
+    <servlet-class>javaprogram.StudentDetailsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StudentDetailsServlet</servlet-name>
+    <url-pattern>/studentDetails</url-pattern>
+  </servlet-mapping>
+
+Note: Replace above with the existing one.
+
+This configuration maps the servlet to the URL pattern "/studentDetails", so when a client sends a request to "/studentDetails" with parameters "name", "usn", and "totalMarks", the servlet will handle it.
+To test the servlet, you can create a simple HTML form that submits the student details to the servlet:
+
+HTML File:
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Details Form</title>
+</head>
+<body>
+    <form action="studentDetails" method="post">
+       Name: <input type="text" name="name"><br>
+        USN: <input type="text" name="usn"><br>
+        Total Marks: <input type="text" name="totalMarks"><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
+
+Save this HTML code as "student_details_form.html" and deploy it along with the servlet. When you open the HTML file in a browser, it will display a form where you can enter student details. Upon submitting the form, it will send a POST request to the servlet, which will generate the student details message and display it on the browser.
+Remember to deploy your servlet and HTML file properly in a servlet container like Apache Tomcat. 
+
+
+OUTPUT:
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+10.	A Java program to create and read the cookie for the given cookie name as “EMPID” and its value as “AN2356”.
+
+Program:
+
+\\ Set Cookie Servlet File:
+
+package javaprogram;
+
+import jakarta.servlet.*;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.*;
+
+@WebServlet("/SetCookie")
+public class SetCookieServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Create a cookie
+        Cookie cookie = new Cookie("EMPID", "AN2356");
+
+        // Set cookie properties
+        cookie.setMaxAge(3600); // Cookie expires in 1 hour
+        cookie.setPath("/");    // Cookie is accessible from the root path
+
+        // Add cookie to the response
+        response.addCookie(cookie);
+
+        // Inform the user that the cookie is set
+        response.setContentType("text/html");
+        response.getWriter().println("Cookie 'EMPID' with value 'AN2356' is set.");
+    }
+}
+
+\\ Read Cookie Servlet File:
+
+package javaprogram;
+
+import jakarta.servlet.*;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.*;
+
+@WebServlet("/ReadCookie")
+public class ReadCookieServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Get all cookies from the request
+        Cookie[] cookies = request.getCookies();
+
+        // Find the cookie with name "EMPID"
+        String empId = null;
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("EMPID")) {
+                    empId = cookie.getValue();
+                    break;
+                }
+            }
+        }
+
+        // Respond with the value of the cookie
+        response.setContentType("text/html");
+        if (empId != null) {
+            response.getWriter().println("EMPID: " + empId);
+        } else {
+            response.getWriter().println("No cookie found with name EMPID");
+        }
+    }
+}
+
+web.xml Set Cookie File:
+
+<servlet>
+    <description></description>
+    <servlet-name>SetCookieServlet</servlet-name>
+    <servlet-class>javaprogram.SetCookieServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SetCookieServlet</servlet-name>
+    <url-pattern>/SetCookieServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+
+Note: Replace above with the existing one.
+
+web.xml Read Cookie File:
+
+    <servlet-name>ReadCookieServlet</servlet-name>
+    <servlet-class>javaprogram.ReadCookieServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReadCookieServlet</servlet-name>
+    <url-pattern>/ReadCookieServlet</url-pattern>
+  </servlet-mapping> 
+
+Note: Replace above with the existing one.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OUTPUT:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+11.	Write a JAVA Program to insert data into Student DATA BASE and retrieve info based on particular queries(For example update, delete, search etc…).	
+ 
+ Program:
+
+package javaprogram;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class StudentDatabaseExample {
+    // JDBC URL, username, and password of MySQL server
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/studentdb";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "ise123";
+
+    public static void main(String[] args) {
+        try {
+            // Register JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Open a connection
+            Connection conn = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
+
+            // Insert data into Student table
+            insertData(conn, "John", 22, "CS");
+            insertData(conn, "Alice", 21, "Math");
+            insertData(conn, "Bob", 23, "Physics");
+
+            // Update data in Student table
+            updateData(conn, "John", 23);
+
+            // Delete data from Student table
+            deleteData(conn, "Alice");
+
+         // Search for data in Student table
+            searchStudent(conn, "Bob");
+            // Close connection
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+public static void insertData(Connection conn, String name, int age, String      major) throws SQLException {
+  String query = "INSERT INTO Student (name, age, major) VALUES (?, ?, ?)";
+        PreparedStatement pstmt = conn.prepareStatement(query);
+        pstmt.setString(1, name);
+        pstmt.setInt(2, age);
+        pstmt.setString(3, major);
+        pstmt.executeUpdate();
+    pstmt.close();
+    }
+
+public static void updateData(Connection conn, String name, int newAge)               throws SQLException {
+        String query = "UPDATE Student SET age = ? WHERE name = ?";
+        PreparedStatement pstmt = conn.prepareStatement(query);
+        pstmt.setInt(1, newAge);
+        pstmt.setString(2, name);
+        pstmt.executeUpdate();
+        pstmt.close();
+    }
+
+public static void deleteData(Connection conn, String name) throws  SQLException {
+        String query = "DELETE FROM Student WHERE name = ?";
+        PreparedStatement pstmt = conn.prepareStatement(query);
+        pstmt.setString(1, name);
+        pstmt.executeUpdate();
+        pstmt.close();
+    }
+public static void searchStudent(Connection conn, String name) throws                                                                       SQLException {
+        String query = "SELECT * FROM Student WHERE name = ?";
+        PreparedStatement pstmt = conn.prepareStatement(query);
+        pstmt.setString(1, name);
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String studentName = rs.getString("name");
+            int age = rs.getInt("age");
+            String major = rs.getString("major");
+System.out.println("ID: " + id + ", Name: " + studentName + ", Age: " +    age + ", Major: " + major);
+        }
+        rs.close();
+        pstmt.close();
+    }
+}
+
+//
+
+CREATE DATABASE studentdb;
+
+USE studentdb;
+
+CREATE TABLE Student (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    age INT NOT NULL,
+    major VARCHAR(50) NOT NULL
+);
+
+//
+
+use studentdb;
+select * from student;
+
+
+
+
+
+
+
+
+
+
+OUTPUT:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+12.	A program to design the Login page and validating the USER_ID and PASSWORD using JSP and DataBase.
+
+Program:
+
+Step 1: Set Up the MySQL Database
+Create a Database and Table:
+Open your MySQL command line or a GUI tool like MySQL Workbench.
+Create a database and a users table:
+
+CREATE DATABASE userdb;
+USE userdb;
+CREATE TABLE users (
+    user_id VARCHAR(50) PRIMARY KEY,
+    password VARCHAR(50)
+);
+
+Insert a sample user:
+
+INSERT INTO users (user_id, password) VALUES ('testuser', 'testpassword');
+
+Step 2: Set Up Eclipse Project
+Open Eclipse and select your workspace.
+
+Create a Dynamic Web Project:
+
+Go to File > New > Dynamic Web Project.
+Name your project (e.g., JSPLoginExample).
+Click Next and configure the project facets. Ensure that the version for Dynamic Web Module is set to the latest supported version and select your Apache Tomcat server.
+Click Finish.
+
+Step 3: Create JSP Pages
+Create login.jsp:
+
+Right-click the WebContent folder in your project (src/main/java).
+Go to New > JSP File and name it login.jsp.
+
+
+
+Add the following code:
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+</head>
+<body>
+    <h2>Login Page</h2>
+    <form action="validate.jsp" method="post">
+        User ID: <input type="text" name="user_id"><br>
+        Password: <input type="password" name="password"><br>
+        <input type="submit" value="Login">
+    </form>
+</body>
+</html>
+
+Create validate.jsp:
+
+Right-click the WebContent folder in your project (src/main/java).
+Go to New > JSP File and name it validate.jsp.
+
+Add the following code:
+
+<%@ page import="java.sql.*" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Validation</title>
+</head>
+<body>
+    <h2>Login Validation</h2>
+    <%@ page language="java" %>
+    <%@ page contentType="text/html; charset=ISO-8859-1" %>
+    <%
+    String user_id = request.getParameter("user_id");
+    String password = request.getParameter("password");
+    
+    // JDBC URL, username, and password of your database
+    String JDBC_URL = "jdbc:mysql://localhost:3306/userdb";
+String USERNAME = "root"; // change to your MySQL username
+    String PASSWORD = "rootpassword"; // change to your MySQL password
+    try {
+        // Register JDBC driver
+        Class.forName("com.mysql.cj.jdbc.Driver");
+
+        // Open a connection
+        Connection conn = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
+
+        // Create a prepared statement to prevent SQL injection
+        String sql = "SELECT * FROM users WHERE user_id=? AND password=?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1, user_id);
+        stmt.setString(2, password);
+
+        // Execute the query
+        ResultSet rs = stmt.executeQuery();
+
+        // Check if user_id and password match
+        if (rs.next()) {
+            out.println("<p>Login successful! Welcome, " + user_id + "!</p>");
+        } else {
+            out.println("<p>Invalid user_id or password.</p>");
+        }
+
+        // Close connections
+        rs.close();
+        stmt.close();
+        conn.close();
+    } catch (Exception e) {
+        out.println("<p>Error: " + e.getMessage() + "</p>");
+    }
+    %>
+</body>
+</html>
+
+Step 4: Deploy and Run the Project
+Start the Server:
+
+In the Servers view, right-click your Tomcat server and select Start.
+Access the Application:
+
+Open a web browser and go to http://localhost:8080/JSPLoginExample/login.jsp.
+Step 5: Test the Application
+Login:
+Enter the user ID and password you inserted into the database (testuser / testpassword).
+Click Login.
+You should see a message indicating whether the login was successful or not.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OUTPUT:
+
+
+
+
+
+
+
